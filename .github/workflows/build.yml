@@ -15,13 +15,10 @@ jobs:
           java-version: 1.11
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
-      - name: Deploy the package to the remote server
-        uses: garygrossgarten/github-action-scp@master
-        with:
-          local: build/libs/service.jar
-          remote: /opt/tomcat/webapps/service.jar
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+      - name: executing remote ssh commands using password
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.SSH_USER }}
+            password: ${{ secrets.SSH_PASSWORD }}
+            script: whoami
