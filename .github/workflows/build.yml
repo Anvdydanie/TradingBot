@@ -21,7 +21,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: target/service-0.1.jar
-          remote: ~/service.jar # My remote directory
+          remote: ~/service.jar
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
