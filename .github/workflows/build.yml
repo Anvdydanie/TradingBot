@@ -23,8 +23,6 @@ jobs:
 
       - name: Deploy the package to the remote server
         uses: appleboy/scp-action@master
-        env:
-          super_secret: dev
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
