@@ -26,8 +26,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
           key: ${{ secrets.KEY }}
-          passphrase: ${{ secrets.KEY_PHRASE }}
+          passphrase: "Squantum1"
           source: "build/libs/service.jar"
           target: "/opt/tomcat/webapps"
