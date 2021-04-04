@@ -13,7 +13,7 @@ jobs:
       - name: Set up JDK 1.11
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 1.11
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -30,3 +30,13 @@ jobs:
           passphrase: ${{ secrets.KEY_PHRASE }}
           source: build/libs/service.jar
           target: /opt/tomcat/webapps/service.jar
+
+      - name: Start Service
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.KEY_PHRASE }}
+          script: |
+            systemctl restart java-trading-bot.service
