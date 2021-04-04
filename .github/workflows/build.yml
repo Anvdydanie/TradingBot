@@ -20,7 +20,7 @@ jobs:
       - name: Deploy the package to the remote server
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: TradingBot/service-0.1.jar
+          local: build/libs/service.jar
           remote: ~/service.jar
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
