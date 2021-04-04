@@ -18,11 +18,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Deploy the package to the remote server
-        uses: garygrossgarten/github-action-scp@release
+        uses: garygrossgarten/github-action-scp@master
         with:
           local: build/libs/service.jar
           remote: /opt/tomcat/webapps/service.jar
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          tryKeyboard: true
