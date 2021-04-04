@@ -27,6 +27,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.KEY_PHRASE }}
           source: "build/libs/service.jar"
           target: "/opt/tomcat/webapps"
