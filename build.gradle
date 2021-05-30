@@ -19,9 +19,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.springframework.vault', name: 'spring-vault-core', version: '2.3.2'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-vault-config', version: '3.0.2'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly group: 'org.springframework.cloud', name: 'spring-cloud-dependencies', version: '2020.0.2', ext: 'pom'
 }
 
 test {
