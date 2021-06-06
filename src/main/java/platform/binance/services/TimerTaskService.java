@@ -29,7 +29,7 @@ public class TimerTaskService extends TimerTask {
                 return;
             }
 
-            var currencyPriceList = binanceService.priceByToolHourly.get(cryptoCurrency);
+            var currencyPriceList = binanceService.getPriceByToolHourly().get(cryptoCurrency);
             // если количество точек не накопилось
             if (currencyPriceList.size() >= BinanceConfig.MaxPriceElementsInList.HOURLY.maxValue) {
                 currencyPriceList.remove(0);

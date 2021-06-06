@@ -149,7 +149,7 @@ public class WebExchangeService {
             var uriBuilder = UriComponentsBuilder.fromHttpUrl(activeApiUrl + methodName.methodUrl);
             if (methodName.requestType == HttpMethod.GET) {
                 requestBodyMap.forEach(uriBuilder::queryParam);
-                entityRequest = new HttpEntity(null, headers);
+                entityRequest = new HttpEntity<>(null, headers);
             } else {
                 entityRequest = new HttpEntity(requestBodyMap, headers);
             }
@@ -189,7 +189,7 @@ public class WebExchangeService {
             var uriBuilder = UriComponentsBuilder.fromHttpUrl(activeApiUrl + methodName.methodUrl);
             if (methodName.requestType == HttpMethod.GET && requestBodyMap != null) {
                 requestBodyMap.forEach(uriBuilder::queryParam);
-                entityRequest = new HttpEntity(null, headers);
+                entityRequest = new HttpEntity<>(null, headers);
             } else {
                 entityRequest = new HttpEntity(requestBodyMap, headers);
             }

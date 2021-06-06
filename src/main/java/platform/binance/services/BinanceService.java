@@ -1,5 +1,7 @@
 package platform.binance.services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import platform.binance.configs.BinanceConfig;
@@ -11,6 +13,15 @@ import platform.binance.response.SystemStatusResponse;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.*;
+
+
+/*
+TODO
+1. Добавить логирование и ротацию логов
+2. Подключить nosql. Хранить и забирать данные для анализа оттуда (Подумать, как лучше сделать)
+3. Добавить недостающие стратегии и вызывать их параллельно
+ */
+
 
 @Service
 public class BinanceService {
@@ -27,22 +38,23 @@ public class BinanceService {
     /**
      * переменная хранит данные по цене крипты каждые n секунд за час
       */
-    public Map<String, List<BigDecimal>> priceByToolHourly = new HashMap<>();
+    @Getter
+    @Setter
+    private Map<String, List<BigDecimal>> priceByToolHourly = new HashMap<>();
 
     /**
-     * переменная хранит данные по цене крипты каждые 2 минуты за сутки
+     * переменная хранит данные по цене крипты каждые n минут за сутки
      */
-    public Map<String, List<BigDecimal>> priceByToolDaily = new HashMap<>();
+    @Getter
+    @Setter
+    private Map<String, List<BigDecimal>> priceByToolDaily = new HashMap<>();
 
     /**
-     * переменная хранит данные по цене крипты каждый час за неделю
+     * переменная хранит данные по цене крипты каждый n часов за месяц
      */
-    public Map<String, List<BigDecimal>> priceByToolWeekly = new HashMap<>();
-
-    /**
-     * переменная хранит данные по цене крипты каждый день за месяц
-     */
-    public Map<String, List<BigDecimal>> priceByToolMonthly = new HashMap<>();
+    @Getter
+    @Setter
+    private Map<String, List<BigDecimal>> priceByToolMonthly = new HashMap<>();
 
     /**
      * Метод возвращает статус работоспособности системы
@@ -105,11 +117,10 @@ public class BinanceService {
 
     @PostConstruct
     private void init() {
-        // TODO подключить sql и избавиться от этой схемы
+        // TODO подключить nosql и избавиться от этой схемы
         for (String cryptoCurrency : config.getCryptoList()) {
             priceByToolHourly.put(cryptoCurrency, new ArrayList<>());
             priceByToolDaily.put(cryptoCurrency, new ArrayList<>());
-            priceByToolWeekly.put(cryptoCurrency, new ArrayList<>());
             priceByToolMonthly.put(cryptoCurrency, new ArrayList<>());
         }
 

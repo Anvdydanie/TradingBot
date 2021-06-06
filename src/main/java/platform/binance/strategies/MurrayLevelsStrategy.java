@@ -16,6 +16,8 @@ public class MurrayLevelsStrategy {
 
     private List<BigDecimal> levelsList = new ArrayList<>();
 
+    private final int NUMBER_OF_LEVELS_TO_COUNT = 9;
+
     @Autowired
     private BinanceService binanceService;
 
@@ -65,10 +67,10 @@ public class MurrayLevelsStrategy {
         // рассчитываем где средняя линию
         var middleLevelIndex = (int) Math.round( (double) MurrayLevels.values().length / (double) 2 );
         // Строим уровни мюррея
-        if (levelsList.isEmpty() && binanceService.priceByToolHourly.get(cryptoCurrency).size() >= BinanceConfig.MaxPriceElementsInList.HOURLY.maxValue) {
-            var maxPrice = Collections.max(binanceService.priceByToolHourly.get(cryptoCurrency));
-            var minPrice = Collections.min(binanceService.priceByToolHourly.get(cryptoCurrency));
-            var step = maxPrice.subtract(minPrice).divide(BigDecimal.valueOf(9), 4, RoundingMode.UP);
+        if (levelsList.isEmpty() && binanceService.getPriceByToolHourly().get(cryptoCurrency).size() >= BinanceConfig.MaxPriceElementsInList.HOURLY.maxValue) {
+            var maxPrice = Collections.max(binanceService.getPriceByToolHourly().get(cryptoCurrency));
+            var minPrice = Collections.min(binanceService.getPriceByToolHourly().get(cryptoCurrency));
+            var step = maxPrice.subtract(minPrice).divide(BigDecimal.valueOf(NUMBER_OF_LEVELS_TO_COUNT), 4, RoundingMode.UP);
 
             for (var i = 0; i < MurrayLevels.values().length; i++) {
                 levelsList.add(maxPrice.add(step.multiply(BigDecimal.valueOf(2))).subtract(step.multiply(BigDecimal.valueOf(i))));
